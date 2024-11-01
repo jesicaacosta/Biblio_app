@@ -29,6 +29,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <!-- Carrusel -->
     <div
@@ -122,17 +123,6 @@
       {% for libro in biblioteca %}
       <li class="li_libros">
         <strong class="titulo">Título:</strong> {{ libro['titulo'] }}<br />
-
-        {% if libro['portada'] %}
-        <p>Portada del libro:</p>
-        <img
-          src="{{ url_for('static', filename=libro['portada'].replace('static/', '')) }}"
-          alt="Portada del libro"
-          style="width: 200px; height: auto; border-radius: 8px"
-        />
-        {% else %}
-        <p>No hay portada.</p>
-        {% endif %}
         <strong>Autor:</strong> {{ libro['autor'] }}<br />
         <strong>Estrellas:</strong> {{ libro['estrellas'] }}<br />
         <strong>Comienzo de Lectura:</strong> {{ libro['comienzo_de_lectura']
@@ -153,7 +143,7 @@
           </button>
         </form>
         <form
-          action="{{ url_for('editar', index=loop.index0) }}"
+          action="{{ url_for('editar_libro', index=loop.index0) }}"
           method="GET"
           style="display: inline"
         >
@@ -205,13 +195,6 @@
           placeholder="Descripción o reseña"
           class="input_form"
         ></textarea>
-
-        <!-- cargar imagen del libro -->
-        <div class="form-group">
-          <label for="portada">Portada del libro:</label>
-          <input type="file" id="portada" name="portada" accept="image/*" />
-        </div>
-
         <button type="submit" class="myButtonAnimado">Agregar Libro</button>
       </form>
       <img

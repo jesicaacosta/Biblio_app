@@ -33,7 +33,7 @@
 
     <form
       class="form_editar"
-      action="{{ url_for('editar', index=index) }}"
+      action="{{ url_for('editar_libro', index=index) }}"
       method="POST"
     >
       <!-- Mostrar portada actual si existe -->
@@ -113,7 +113,6 @@
         <textarea
           id="descripcion"
           name="descripcion"
-          required
           placeholder="Descripción del libro"
           class="input_editar"
         >

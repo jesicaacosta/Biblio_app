@@ -5,32 +5,19 @@ from biblioteca import biblioteca, mostrar_libros, agregar_libro, actualizar_lib
 
 app = Flask(__name__)
 
+# Define la carpeta de subida para las imágenes
+UPLOAD_FOLDER = os.path.join('static', 'images')
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'images')
+
+
 @app.route('/')
 def index():
     return render_template('index.html', biblioteca=biblioteca)
 
 @app.route('/agregar', methods=['POST'])
 def agregar():
-    #primero obetiene el archivo
-    portada = request.files.get('portada') 
-    if portada:
-        filename = secure_filename(portada.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        portada.save(filepath)  # Guarda la imagen en el servidor
-        
-        libro = {
-        'titulo': request.form['titulo'],
-        'portada':  filepath,  # Guarda la ruta de la imagen
-        'autor': request.form['autor'],
-        'estrellas': request.form['estrellas'],
-        'comienzo_de_lectura': request.form['comienzo_de_lectura'],
-        'fin_de_lectura': request.form['fin_de_lectura'],
-        'descripcion': request.form['descripcion']
-    }
-    else:
-        libro = {
+    libro = {
             'titulo': request.form['titulo'],
-            'portada': None,  # Si no hay imagen, define portada como None
             'autor': request.form['autor'],
             'estrellas': request.form['estrellas'],
             'comienzo_de_lectura': request.form['comienzo_de_lectura'],
@@ -41,29 +28,40 @@ def agregar():
     agregar_libro(libro)
     return redirect(url_for('index'))
 
+
+#----------- Funcion ELIMINAR
 @app.route('/eliminar/<int:index>', methods=['POST'])
-def eliminar(index):
-    eliminar_libro(index)
+def eliminar(index): #eliminar es el manejador de la ruta que se invoca cuando un usuario quiere eliminar un libro, y se encarga de redirigir después de la eliminación.
+    eliminar_libro(index) ## Llama a la fncion para realizar la eliminacion
     return redirect(url_for('index'))
 
+
+
+#----------- FUNCION EDITAR 
 @app.route('/editar/<int:index>', methods=['GET', 'POST'])
-def editar(index):
+def editar_libro(index):
     if request.method == 'POST':
         libro_actualizado = {
             'titulo': request.form['titulo'],
-            'portada': request.form['portada'],
             'autor': request.form['autor'],
             'estrellas': request.form['estrellas'],
             'comienzo_de_lectura': request.form['comienzo_de_lectura'],
             'fin_de_lectura': request.form['fin_de_lectura'],
             'descripcion': request.form['descripcion']
         }
-        actualizar_libro(index, libro_actualizado)
+        actualizar_datos_libro(index, libro_actualizado)  # Llamar a la función de actualización
         return redirect(url_for('index'))
     
     # Si es un GET, muestra el libro a editar
     libro_a_editar = biblioteca[index]
     return render_template('editar.html', libro=libro_a_editar, index=index)
+
+
+def actualizar_datos_libro(index, libro_actualizado):
+    # Aquí implementas la lógica para actualizar el libro en la biblioteca
+    biblioteca[index] = libro_actualizado
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
