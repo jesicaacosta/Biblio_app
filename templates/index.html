@@ -106,13 +106,13 @@
     <!-- Texto de Bienvenida -->
     <section class="container mt-5">
       <div class="text-center">
-        <h2>Bienvenido a Tu Biblioteca Personal</h2>
+        <h2>📔 Bienvenido a Tu Biblioteca Personal 🥰</h2>
         <p class="mt-4">
           Esta plataforma está diseñada especialmente para lectores apasionados
           que desean llevar un registro detallado de su colección de libros. Acá
-          podrás agregar libros, escribir reseñas, y descubrir estadísticas
-          sobre tus hábitos de lectura. ¡Comienza a explorar y haz que cada
-          lectura cuente!
+          podrás agregar libros, escribir reseñas, y descurir estadísticas sobre
+          tus hábitos de lectura. ¡Comienza a explorar y haz que cada lectura
+          cuente!
         </p>
       </div>
     </section>
@@ -122,9 +122,9 @@
     <ul class="ul_libros">
       {% for libro in biblioteca %}
       <li class="li_libros">
-        <strong class="titulo">Título:</strong> {{ libro['titulo'] }}<br />
+        <strong class="titulo">📃Título:</strong> {{ libro['titulo'] }}<br />
         <strong>Autor:</strong> {{ libro['autor'] }}<br />
-        <strong>Estrellas:</strong> {{ libro['estrellas'] }}<br />
+        <strong>⭐ Estrellas:</strong> {{ libro['estrellas'] }}<br />
         <strong>Comienzo de Lectura:</strong> {{ libro['comienzo_de_lectura']
         }}<br />
         <strong>Fin de Lectura:</strong> {{ libro['fin_de_lectura'] }}<br />
@@ -179,13 +179,13 @@
           class="input_form"
         />
         <input
-          type="text"
+          type="date"
           name="comienzo_de_lectura"
           placeholder="Fecha de inicio de lectura"
           class="input_form"
         />
         <input
-          type="text"
+          type="date"
           name="fin_de_lectura"
           placeholder="Fecha de fin de lectura"
           class="input_form"
