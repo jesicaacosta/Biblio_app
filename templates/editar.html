@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Editar Libros</title>
+    <title>Biblioteca Personal</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
@@ -25,9 +25,29 @@
       rel="stylesheet"
     />
   </head>
-  <body>
-    <h1>Editar Libro</h1>
-    <form action="{{ url_for('editar', index=index) }}" method="POST">
+
+  <body class="body_editar">
+    <h1 class="h1_editar">Editar Libro</h1>
+
+    <!-- Input para cargar nueva portada -->
+
+    <form
+      class="form_editar"
+      action="{{ url_for('editar', index=index) }}"
+      method="POST"
+    >
+      <!-- Mostrar portada actual si existe -->
+      {% if libro.portada %}
+      <div class="current-cover">
+        <p>Portada actual:</p>
+        <img
+          src="{{ libro['portada'] }}"
+          alt="Portada actual"
+          style="width: 150px; height: auto; border-radius: 8px"
+        />
+      </div>
+      {% endif %}
+
       <div>
         <label for="titulo">Título:</label>
         <input
@@ -37,6 +57,7 @@
           value="{{ libro['titulo'] }}"
           required
           placeholder="Título del libro"
+          class="input_editar"
         />
       </div>
       <div>
@@ -48,6 +69,7 @@
           value="{{ libro['autor'] }}"
           required
           placeholder="Autor del libro"
+          class="input_editar"
         />
       </div>
       <div>
@@ -61,6 +83,7 @@
           value="{{ libro['estrellas'] }}"
           required
           placeholder="Calificación de estrellas"
+          class="input_editar"
         />
       </div>
       <div>
@@ -71,6 +94,7 @@
           name="comienzo_de_lectura"
           value="{{ libro['comienzo_de_lectura'] }}"
           placeholder="Fecha de inicio"
+          class="input_editar"
         />
       </div>
       <div>
@@ -81,6 +105,7 @@
           name="fin_de_lectura"
           value="{{ libro['fin_de_lectura'] }}"
           placeholder="Fecha de finalización"
+          class="input_editar"
         />
       </div>
       <div>
@@ -90,11 +115,14 @@
           name="descripcion"
           required
           placeholder="Descripción del libro"
+          class="input_editar"
         >
 {{ libro['descripcion'] }}</textarea
         >
       </div>
-      <button type="submit" class="myButtonAnimado">Actualizar Libro</button>
+      <button type="submit" class="myButtonAnimado_editar">
+        Actualizar Libro
+      </button>
     </form>
   </body>
 </html>

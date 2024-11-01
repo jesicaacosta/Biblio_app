@@ -16,6 +16,10 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,8 +30,138 @@
     />
   </head>
   <body>
-    <h1 class="name_page">My Biblio</h1>
-    <h3>Para amantes de la lectura</h3>
+    <!-- Carrusel -->
+    <div
+      id="carouselExampleIndicators"
+      class="carousel slide"
+      data-ride="carousel"
+    >
+      <ol class="carousel-indicators">
+        <li
+          data-target="#carouselExampleIndicators"
+          data-slide-to="0"
+          class="active"
+        ></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="{{ url_for('static', filename='images/img_1.jpg') }}"
+            class="d-block w-100"
+            alt="Libros favoritos"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Guarda tus Libros Favoritos</h5>
+            <p>Lleva un registro de todos los libros que has leído.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="{{ url_for('static', filename='images/img_2.jpg') }}"
+            class="d-block w-100"
+            alt="Análisis detallados"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Analiza y Mejora tu Lectura</h5>
+            <p>
+              Descubre estadísticas interesantes sobre tus hábitos de lectura.
+            </p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="{{ url_for('static', filename='images/img_3.jpg') }}"
+            class="d-block w-100"
+            alt="Comparte tus opiniones"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Comparte tus Opiniones</h5>
+            <p>Escribe reseñas y guarda notas para cada libro.</p>
+          </div>
+        </div>
+      </div>
+      <a
+        class="carousel-control-prev"
+        href="#carouselExampleIndicators"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#carouselExampleIndicators"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+      </a>
+    </div>
+
+    <!-- Texto de Bienvenida -->
+    <section class="container mt-5">
+      <div class="text-center">
+        <h2>Bienvenido a Tu Biblioteca Personal</h2>
+        <p class="mt-4">
+          Esta plataforma está diseñada especialmente para lectores apasionados
+          que desean llevar un registro detallado de su colección de libros. Acá
+          podrás agregar libros, escribir reseñas, y descubrir estadísticas
+          sobre tus hábitos de lectura. ¡Comienza a explorar y haz que cada
+          lectura cuente!
+        </p>
+      </div>
+    </section>
+
+    <!-- Muestra la Lista de libros -->
+    <h2>Libros en la Biblioteca</h2>
+    <ul class="ul_libros">
+      {% for libro in biblioteca %}
+      <li class="li_libros">
+        <strong class="titulo">Título:</strong> {{ libro['titulo'] }}<br />
+
+        {% if libro['portada'] %}
+        <p>Portada del libro:</p>
+        <img
+          src="{{ url_for('static', filename=libro['portada'].replace('static/', '')) }}"
+          alt="Portada del libro"
+          style="width: 200px; height: auto; border-radius: 8px"
+        />
+        {% else %}
+        <p>No hay portada.</p>
+        {% endif %}
+        <strong>Autor:</strong> {{ libro['autor'] }}<br />
+        <strong>Estrellas:</strong> {{ libro['estrellas'] }}<br />
+        <strong>Comienzo de Lectura:</strong> {{ libro['comienzo_de_lectura']
+        }}<br />
+        <strong>Fin de Lectura:</strong> {{ libro['fin_de_lectura'] }}<br />
+        <strong>Descripción:</strong> {{ libro['descripcion'] }}<br />
+        <form
+          action="{{ url_for('eliminar', index=loop.index0) }}"
+          method="POST"
+          style="display: inline"
+        >
+          <button
+            type="submit"
+            class="myButtonAnimado"
+            onclick="return confirmarEliminacion()"
+          >
+            Eliminar
+          </button>
+        </form>
+        <form
+          action="{{ url_for('editar', index=loop.index0) }}"
+          method="GET"
+          style="display: inline"
+        >
+          <button type="submit" class="myButtonAnimado">Editar</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
 
     <!-- Formulario para agregar un libro -->
     <div class="form_agregar_libro">
@@ -71,6 +205,13 @@
           placeholder="Descripción o reseña"
           class="input_form"
         ></textarea>
+
+        <!-- cargar imagen del libro -->
+        <div class="form-group">
+          <label for="portada">Portada del libro:</label>
+          <input type="file" id="portada" name="portada" accept="image/*" />
+        </div>
+
         <button type="submit" class="myButtonAnimado">Agregar Libro</button>
       </form>
       <img
@@ -78,42 +219,6 @@
         alt="Imagen de biblioteca"
       />
     </div>
-
-    <!-- Lista de libros -->
-    <h2>Libros en la Biblioteca</h2>
-    <ul class="ul_libros">
-      {% for libro in biblioteca %}
-      <li>
-        <strong class="titulo">Título:</strong> {{ libro['titulo'] }}<br />
-        <strong>Autor:</strong> {{ libro['autor'] }}<br />
-        <strong>Estrellas:</strong> {{ libro['estrellas'] }}<br />
-        <strong>Comienzo de Lectura:</strong> {{ libro['comienzo_de_lectura']
-        }}<br />
-        <strong>Fin de Lectura:</strong> {{ libro['fin_de_lectura'] }}<br />
-        <strong>Descripción:</strong> {{ libro['descripcion'] }}<br />
-        <form
-          action="{{ url_for('eliminar', index=loop.index0) }}"
-          method="POST"
-          style="display: inline"
-        >
-          <button
-            type="submit"
-            class="myButtonAnimado"
-            onclick="return confirmarEliminacion()"
-          >
-            Eliminar
-          </button>
-        </form>
-        <form
-          action="{{ url_for('editar', index=loop.index0) }}"
-          method="GET"
-          style="display: inline"
-        >
-          <button type="submit" class="myButtonAnimado">Editar</button>
-        </form>
-      </li>
-      {% endfor %}
-    </ul>
   </body>
 
   <!-- escucha si hay una solicitud de eliminacion, confirma -->
@@ -122,4 +227,7 @@
       return confirm("¿Estás seguro de que deseas eliminar este libro?");
     }
   </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>

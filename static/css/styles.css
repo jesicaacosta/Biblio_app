@@ -14,6 +14,37 @@ body {
 h1,
 h2 {
   color: #e7c8dd;
+  margin-left: 30px;
+}
+
+/* Carrusel */
+.carousel-inner img {
+  height: 70vh;
+  object-fit: cover;
+  filter: brightness(80%);
+}
+
+.carousel-caption h5 {
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption p {
+  color: #ddd;
+}
+
+/* Texto de Bienvenida */
+section h2 {
+  color: #86626e;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+section p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.6;
 }
 
 .name_page {
@@ -48,8 +79,8 @@ h2 {
 
 .form_agregar_libro img {
   width: 35%; /* Tamaño en pantallas grandes */
-  height: auto;
-  max-width: 100%;
+  height: 65vh;
+  max-width: 90%;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   object-fit: cover;
@@ -68,9 +99,9 @@ h2 {
   }
 
   .form_agregar_libro img {
-    width: 100%; /* Ocupa todo el ancho */
-    height: auto;
-    margin-top: 20px; /* Espacio entre el formulario y la imagen */
+    width: 90%;
+    height: 50vh;
+    margin-top: 20px;
   }
 }
 
@@ -88,24 +119,21 @@ textarea {
 }
 
 .myButtonAnimado {
-  box-shadow: inset 0px 1px 0px 0px #d9fbbe;
-  background: linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
-  background-color: #b8e356;
+  box-shadow: inset 0px 1px 0px 0px #80757f;
+  background-color: #e2e4f6;
+  color: #86626e;
   border-radius: 6px;
   border: 1px solid #defffc;
   display: inline-block;
   cursor: pointer;
-  color: #ffffff;
-  font-family: Arial;
   font-size: 15px;
   font-weight: bold;
   padding: 6px 24px;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #86ae47;
 }
 .myButtonAnimado:hover {
-  background: linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
-  background-color: #a5cc52;
+  background-color: #86626e;
+  color: white;
 }
 .myButtonAnimado:active {
   position: relative;
@@ -113,23 +141,173 @@ textarea {
 }
 
 /* Estilos para cada libro dentro de la lista */
+/* Contenedor principal para las tarjetas de libros */
 .ul_libros {
-  list-style-type: none; /* Quita el estilo de lista por defecto */
-  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres tarjetas por fila */
+  gap: 20px; /* Espacio entre cada tarjeta */
+  list-style-type: none; /*Que no tenga los puntos */
+  padding: 10px;
+  height: auto;
 }
 
 .ul_libros li {
-  background-color: #f9f9f9; /* Fondo claro para cada bloque de libro */
-  border: 1px solid #ddd; /* Borde sutil alrededor de cada libro */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   padding: 15px;
-  margin: 10px 0; /* Espacio entre cada libro */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar profundidad */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Ajustes para dispositivos más pequeños */
+@media (max-width: 1024px) {
+  .ul_libros {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Dos tarjetas por fila en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  .ul_libros {
+    grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas pequeñas */
+  }
 }
 
 /* Estilos para los elementos dentro de cada libro */
+
+.li_libros {
+  border: 2px solid red;
+  width: 45vw;
+}
+
 .ul_libros .titulo {
   font-size: 1.1rem;
   font-weight: bold;
   color: #444;
+}
+
+/*ESTILÑOS PARA EDITAR.HTML*/
+
+.body_editar {
+  font-family: "Roboto", sans-serif;
+  background-color: #e2e4f6;
+  color: #444;
+}
+
+.h1_editar {
+  text-align: center;
+  color: #86626e;
+  font-size: 2.2rem;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.form_editar {
+  max-width: 500px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
+}
+
+.form_editar div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form_editar div label {
+  flex: 1;
+  font-weight: bold;
+  color: #86626e;
+}
+
+.form_editar div input,
+.form_editar div textarea {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.input_editar:focus,
+.textarea_editar:focus {
+  outline: none;
+  border-color: #86626e;
+  box-shadow: 0 0 5px rgba(134, 98, 110, 0.3);
+}
+
+.textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+/* Botón de actualizar */
+button.myButtonAnimado_editar {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #86626e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+button.myButtonAnimado_editar:hover {
+  background-color: #5f4551;
+}
+
+/* Iconos de cada campo */
+.form_editar div::before {
+  content: "";
+  display: inline-block;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+}
+
+.form_editar div#titulo::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/book.png");
+}
+.form_editar div#autor::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/pen.png");
+}
+.form_editar div#estrellas::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/star.png");
+}
+.form_editar div#comienzo_de_lectura::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/calendar.png");
+}
+.form_editar div#fin_de_lectura::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/calendar--v1.png");
+}
+.form_editar div#descripcion::before {
+  background-image: url("https://img.icons8.com/ios-glyphs/30/86626e/align-text-left.png");
+}
+
+/* Mejorar diseño en dispositivos móviles */
+@media (max-width: 768px) {
+  form {
+    padding: 15px;
+  }
+
+  h1_editar {
+    font-size: 1.8rem;
+  }
+
+  button.myButtonAnimado_editar {
+    font-size: 0.9rem;
+  }
 }

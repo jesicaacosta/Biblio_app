@@ -1,3 +1,5 @@
+import os #se utiliza para construir rutas de archivos de manera compatible con cualquier so, lo cual es útil al guardar imágenes en una ubicación específica del servidor.
+from werkzeug.utils import secure_filename #toma el nombre de un archivo subido por el usuario y lo transforma en un nombre seguro,
 from flask import Flask, render_template, request, redirect, url_for
 from biblioteca import biblioteca, mostrar_libros, agregar_libro, actualizar_libro, eliminar_libro
 
@@ -9,14 +11,33 @@ def index():
 
 @app.route('/agregar', methods=['POST'])
 def agregar():
-    libro = {
+    #primero obetiene el archivo
+    portada = request.files.get('portada') 
+    if portada:
+        filename = secure_filename(portada.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        portada.save(filepath)  # Guarda la imagen en el servidor
+        
+        libro = {
         'titulo': request.form['titulo'],
+        'portada':  filepath,  # Guarda la ruta de la imagen
         'autor': request.form['autor'],
         'estrellas': request.form['estrellas'],
         'comienzo_de_lectura': request.form['comienzo_de_lectura'],
         'fin_de_lectura': request.form['fin_de_lectura'],
         'descripcion': request.form['descripcion']
     }
+    else:
+        libro = {
+            'titulo': request.form['titulo'],
+            'portada': None,  # Si no hay imagen, define portada como None
+            'autor': request.form['autor'],
+            'estrellas': request.form['estrellas'],
+            'comienzo_de_lectura': request.form['comienzo_de_lectura'],
+            'fin_de_lectura': request.form['fin_de_lectura'],
+            'descripcion': request.form['descripcion']
+        }
+        
     agregar_libro(libro)
     return redirect(url_for('index'))
 
@@ -30,6 +51,7 @@ def editar(index):
     if request.method == 'POST':
         libro_actualizado = {
             'titulo': request.form['titulo'],
+            'portada': request.form['portada'],
             'autor': request.form['autor'],
             'estrellas': request.form['estrellas'],
             'comienzo_de_lectura': request.form['comienzo_de_lectura'],

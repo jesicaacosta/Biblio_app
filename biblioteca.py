@@ -8,7 +8,7 @@ def mostrar_libros():
     else:
         print("Libros en la biblioteca:")
         for idx, libro in enumerate(biblioteca, start=1):
-            print(f"{idx}. Título: {libro['titulo']}, {libro['autor']}, {libro['estrellas']}, "
+            print(f"{idx}. Título: {libro['titulo']}, {libro['portada'],} {libro['autor']}, {libro['estrellas']}, "
                   f"{libro['comienzo_de_lectura']}, {libro['fin_de_lectura']}, Descripción: {libro['descripcion']}")
 
 # Función para agregar un libro
