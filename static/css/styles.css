@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #e2e4f6;
+}
+
+h1,
+h2 {
+  color: #e7c8dd;
+}
+
+.name_page {
+  font-size: 2.5rem;
+  font-family: "Georgia", serif;
+  text-align: center;
+  color: #86626e;
+  background-color: #e7c8dd;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  letter-spacing: 1.5px; /* Espacio entre letras para mejorar la legibilidad */
+  text-transform: uppercase; /* Letras en mayúsculas para un estilo formal */
+  height: 15vh;
+  align-content: center;
+}
+
+.form_agregar_libro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form_agregar_libro form {
+  width: 60%;
+  margin-right: 20px;
+}
+
+.form_agregar_libro img {
+  width: 35%; /* Tamaño en pantallas grandes */
+  height: auto;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .form_agregar_libro {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form_agregar_libro form {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .form_agregar_libro img {
+    width: 100%; /* Ocupa todo el ancho */
+    height: auto;
+    margin-top: 20px; /* Espacio entre el formulario y la imagen */
+  }
+}
+
+input,
+textarea {
+  display: block;
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input_form {
+  margin: 20px 0;
+}
+
+.myButtonAnimado {
+  box-shadow: inset 0px 1px 0px 0px #d9fbbe;
+  background: linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
+  background-color: #b8e356;
+  border-radius: 6px;
+  border: 1px solid #defffc;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #86ae47;
+}
+.myButtonAnimado:hover {
+  background: linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
+  background-color: #a5cc52;
+}
+.myButtonAnimado:active {
+  position: relative;
+  top: 1px;
+}
+
+/* Estilos para cada libro dentro de la lista */
+.ul_libros {
+  list-style-type: none; /* Quita el estilo de lista por defecto */
+  padding: 0;
+}
+
+.ul_libros li {
+  background-color: #f9f9f9; /* Fondo claro para cada bloque de libro */
+  border: 1px solid #ddd; /* Borde sutil alrededor de cada libro */
+  padding: 15px;
+  margin: 10px 0; /* Espacio entre cada libro */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar profundidad */
+}
+
+/* Estilos para los elementos dentro de cada libro */
+.ul_libros .titulo {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #444;
+}
